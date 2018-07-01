@@ -7,5 +7,6 @@
     "npm": "^6.1.0"
   },
   "scripts": {
+    "dev": "cd client; npm run build; cd ..; npx sandbox"
   }
 }

@@ -5,7 +5,11 @@ sense8
 get /
 
 @json
-post /clusters
+post /memberships
+
+@tables
+memberships
+  userId *String
 
 @static
 staging sense8clustersstaging.joinapod.com
