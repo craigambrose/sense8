@@ -1,34 +1,36 @@
-let arc = require('@architect/functions')
+let arc = require("@architect/functions")
+let aws = require("aws-sdk")
+
+buckets = {
+  production: "sense8clusters.joinapod.com",
+  staging: "sense8clustersstaging.joinapod.com"
+}
 
 function route(req, res) {
-  if (process.env.NODE_ENV === 'testing') {
-    fs = require('fs');
-    fs.readFile('./.static/index.html', 'utf8', function (err, data) {
+  if (process.env.NODE_ENV === "testing") {
+    fs = require("fs")
+    fs.readFile("./.static/index.html", "utf8", function(err, data) {
       if (err) {
-        return console.log(err);
-        res({html: "error"})
+        return console.log(err)
+        res({ html: "error" })
       } else {
-        res({html: data})
+        res({ html: data })
       }
     })
   } else {
     let s3 = new aws.S3()
-    var bucket
-    if (process.env.NODE_ENV === 'production') {
-      bucket = "PRODUCTION_BUCKET" //The name you used in .arc for @static production
-    } else if (process.env.NODE_ENV === 'staging') {
-      bucket = "STAGING_BUCKET" //The name you used in .arc for @static staging
-    }
     var getParams = {
-      Bucket: bucket,
-      Key: 'index.html'
+      Bucket: buckets[process.env.NODE_ENV],
+      Key: "index.html"
     }
 
     s3.getObject(getParams, function(err, data) {
-      if (err)
-        console.log(err)
-      res({html: data.Body.toString()})
-    });
+      if (err) console.log(err)
+      var htmlText = data.Body.toString()
+      var staticPath = req._static("/static")
+
+      res({ html: htmlText.replace(/\/static/g, staticPath) })
+    })
   }
 }
 
