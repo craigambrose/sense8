@@ -1,0 +1,11 @@
+{
+  "name": "joinacluster",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@architect/workflows": "^3.2.0",
+    "npm": "^6.1.0"
+  },
+  "scripts": {
+  }
+}
