@@ -8,9 +8,12 @@
   },
   "scripts": {
     "dev": "cd client; npm run build; cd ..; npx sandbox",
-    "start": "nodemon --watch src/ -e md,css,js --exec NODE_ENV=testing arc-sandbox"
+    "start": "nodemon --watch src/ -e md,css,js --exec NODE_ENV=testing arc-sandbox",
+    "test": "NODE_ENV=testing tape src/**/*.test.js | tap-spec"
   },
   "devDependencies": {
-    "nodemon": "^1.17.5"
+    "nodemon": "^1.17.5",
+    "tap-spec": "^5.0.0",
+    "tape": "^4.9.1"
   }
 }
