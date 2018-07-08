@@ -7,6 +7,10 @@
     "npm": "^6.1.0"
   },
   "scripts": {
-    "dev": "cd client; npm run build; cd ..; npx sandbox"
+    "dev": "cd client; npm run build; cd ..; npx sandbox",
+    "start": "nodemon --watch src/ -e md,css,js --exec NODE_ENV=testing arc-sandbox"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.5"
   }
 }

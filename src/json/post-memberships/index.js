@@ -1,14 +1,14 @@
 const arc = require("@architect/functions")
 const data = require("@architect/data")
+const ClusterMatching = require("./ClusterMatching")
 
-async function route(req, res) {
-  const user = req.body
+async function findOrCreateMembership(user) {
   const userId = user.id
-
   const existing = await data.memberships.get({ userId })
 
   if (existing) {
     console.log("already has membership for user", userId)
+    return existing
   } else {
     console.log("no membership yet for user", userId)
     console.log("creating")
@@ -19,9 +19,18 @@ async function route(req, res) {
       clusterId: null
     }
 
+    const cluster = ClusterMatching.findBestCluster(user)
+    console.log("created")
+
     const newMembership = await data.memberships.put(membership)
     console.log("created")
+    return newMembership
   }
+}
+
+async function route(req, res) {
+  const user = req.body
+  const membership = await findOrCreateMembership(user)
 
   res({
     json: { msg: "posting membership" }
