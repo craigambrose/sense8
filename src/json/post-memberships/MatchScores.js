@@ -7,9 +7,14 @@ function getMatchScore(user, cluster) {
 }
 
 function getBirthdayScore(user, cluster) {
-  return 0
+  const clusterUser = cluster.users[0]
+  return clusterUser.birthday == user.birthday ? 100 : 0
 }
 
 function getDiversityScore(user, cluster) {
   return 0
+}
+
+module.exports = {
+  getBirthdayScore
 }

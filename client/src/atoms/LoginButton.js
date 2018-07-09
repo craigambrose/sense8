@@ -13,7 +13,8 @@ const LoginButton = ({ onLogin }) => (
   <FacebookLogin
     appId="1904644719557229"
     autoLoad={false}
-    fields="name,email,picture"
+    fields="name,email,birthday,picture"
+    scope="public_profile,user_birthday"
     onClick={componentClicked}
     callback={onLogin}
     render={renderProps => {
