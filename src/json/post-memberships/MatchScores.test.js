@@ -41,3 +41,15 @@ test("getBirthdayScore is 50 if only one birthday matches", t => {
 
   t.equal(MatchScores.getBirthdayScore(craig, cluster), 50)
 })
+
+test("getBirthdayScore is 80 if only month and year matches", t => {
+  t.plan(1)
+
+  const cluster = {
+    clusterId: "all_21st",
+    createdAt: Date.now(),
+    users: [{ birthday: "11/01/1978" }]
+  }
+
+  t.equal(MatchScores.getBirthdayScore(craig, cluster), 80)
+})
