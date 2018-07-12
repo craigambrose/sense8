@@ -6,7 +6,7 @@ function getMatchScores(user, clusters) {
 }
 
 function getMatchScore(user, cluster) {
-  return getBirthdayScore() + getDiversityScore()
+  return getBirthdayScore(user, cluster) + getDiversityScore(user, cluster)
 }
 
 module.exports = {
