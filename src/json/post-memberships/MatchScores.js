@@ -25,6 +25,10 @@ function yearsEqual(date1, date2) {
   return date1.getFullYear() == date2.getFullYear()
 }
 
+function yearDiff(date1, date2) {
+  return Math.abs(date1.getFullYear() - date2.getFullYear())
+}
+
 function getMatchScores(user, clusters) {
   return []
 }
@@ -36,13 +40,12 @@ function getMatchScore(user, cluster) {
 function getDateBirthdayScore(userDate, clusterUserDate) {
   if (datesEqual(userDate, clusterUserDate)) {
     return 100
-  } else if (
-    monthsEqual(userDate, clusterUserDate) &&
-    yearsEqual(userDate, clusterUserDate)
-  ) {
-    return 80
+  } else {
+    const monthScore = monthsEqual(userDate, clusterUserDate) ? 10 : 0
+    const yearPenalty = yearDiff(userDate, clusterUserDate) * 10
+    const yearScore = Math.max(80 - yearPenalty, 0)
+    return monthScore + yearScore
   }
-  return 0
 }
 
 function getUserBirthdayScore(user, clusterUser) {
