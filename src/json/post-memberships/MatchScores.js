@@ -2,7 +2,20 @@ const getBirthdayScore = require("./BirthdayScores")
 const getDiversityScore = require("./DiversityScores")
 
 function getMatchScores(user, clusters) {
-  return []
+  return clusters.map(cluster => ({
+    score: getMatchScore(user, cluster),
+    cluster
+  }))
+}
+
+function bestMatchScore(scores) {
+  var bestScore = null
+  scores.forEach(score => {
+    if (bestScore == null || score.score > bestScore.score) {
+      bestScore = score
+    }
+  })
+  return bestScore
 }
 
 function getMatchScore(user, cluster) {
@@ -11,5 +24,6 @@ function getMatchScore(user, cluster) {
 
 module.exports = {
   getMatchScore,
-  getMatchScores
+  getMatchScores,
+  bestMatchScore
 }
