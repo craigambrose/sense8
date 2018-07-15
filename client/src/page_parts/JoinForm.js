@@ -1,6 +1,19 @@
 import React from "react"
+import {
+  ChasingDots,
+  Circle,
+  CubeGrid,
+  DoubleBounce,
+  FadingCircle,
+  FoldingCube,
+  Pulse,
+  RotatingPlane,
+  ThreeBounce,
+  WanderingCubes,
+  Wave
+} from "better-react-spinkit"
 
-const JoinForm = ({ user, onRequestJoin }) => {
+const JoinForm = ({ user, loading, onRequestJoin }) => {
   return (
     <section className="dark-section join-form-section">
       <div className="container">
@@ -29,12 +42,16 @@ const JoinForm = ({ user, onRequestJoin }) => {
         <h2>Ready to try it?</h2>
         <p>If you're sure, lets hit the button below.</p>
         <p>
-          <button
-            className="btn btn-primary btn-on-dark btn-lg"
-            onClick={() => onRequestJoin(user)}
-          >
-            Connect me to a Cluster
-          </button>
+          {loading ? (
+            <Wave size={50} color="#77bfa0" reverse />
+          ) : (
+            <button
+              className="btn btn-primary btn-on-dark btn-lg"
+              onClick={() => onRequestJoin(user)}
+            >
+              Connect me to a Cluster
+            </button>
+          )}
         </p>
       </div>
     </section>

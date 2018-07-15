@@ -7,7 +7,7 @@ import { requestJoinCluster } from "./services/lambda"
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = { user: null }
+    this.state = { user: null, joining: false }
   }
 
   setUser = user => {
@@ -15,12 +15,12 @@ class App extends Component {
   }
 
   requestJoinCluster = user => {
-    console.log("request join a cluster with user", user)
+    this.setState({ joining: true })
     requestJoinCluster(user)
   }
 
   render() {
-    const { user } = this.state
+    const { user, joining } = this.state
     const joinFormState = user ? "open" : "closed"
 
     return (
@@ -28,7 +28,11 @@ class App extends Component {
         <Jumbotron onLogin={this.setUser} user={user} />
         <div className={`expanding-container ${joinFormState}-container`}>
           {user && (
-            <JoinForm user={user} onRequestJoin={this.requestJoinCluster} />
+            <JoinForm
+              user={user}
+              onRequestJoin={this.requestJoinCluster}
+              loading={joining}
+            />
           )}
         </div>
       </div>
