@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "cd client; npm run build; cd ..; npx sandbox",
+    "watchdev": "nodemon --watch client/src/ --exec npm run dev",
     "start": "nodemon --watch src/ -e md,css,js --exec NODE_ENV=testing arc-sandbox",
     "test": "NODE_ENV=testing tape src/**/*.test.js | tap-spec",
     "testwatch": "nodemon --watch src/ --exec NODE_ENV=testing tape src/**/*.test.js | tap-spec"

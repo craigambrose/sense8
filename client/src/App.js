@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import "./App.css"
 import Jumbotron from "./page_parts/Jumbotron"
 import JoinForm from "./page_parts/JoinForm"
-import MatchesForming from "./page_parts/MatchesForming"
+import OpenClusters from "./page_parts/OpenClusters"
 import { requestJoinCluster, loadOpenClusters } from "./services/lambda"
 
 class App extends Component {
@@ -23,8 +23,11 @@ class App extends Component {
   loadFormingClusters = () => {
     this.setState({ joinState: "forming", stateLoading: true })
     loadOpenClusters().then(data => {
-      this.setState({ joinState: "forming", stateLoading: false })
-      console.log("loaded open clusters", data)
+      this.setState({
+        joinState: "forming",
+        stateLoading: false,
+        openClusters: data.clusters
+      })
     })
   }
 
@@ -39,7 +42,7 @@ class App extends Component {
   }
 
   render() {
-    const { user, joinState, stateLoading } = this.state
+    const { user, joinState, stateLoading, openClusters } = this.state
 
     return (
       <div className="App">
@@ -57,7 +60,7 @@ class App extends Component {
             />
           )}
         </div>
-        {this.shouldShowMatches() && <MatchesForming />}
+        {this.shouldShowMatches() && <OpenClusters clusters={openClusters} />}
       </div>
     )
   }

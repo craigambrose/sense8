@@ -24,5 +24,5 @@ export function loadOpenClusters() {
       Accept: "application/json",
       "Content-Type": "application/json"
     }
-  })
+  }).then(res => res.json())
 }
