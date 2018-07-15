@@ -77,3 +77,10 @@ body {
   background-color: #77bfa0;
   border-color: #538c73;
 }
+
+.cluster .avatar {
+  width: 38px;
+  height: 38px;
+  border: 1px solid #343a40;
+  border-radius: 0.3rem;
+}
