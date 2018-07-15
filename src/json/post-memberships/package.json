@@ -1,7 +1,7 @@
 {
   "name": "sense8-post-memberships",
   "dependencies": {
-    "@architect/data": "^2.0.2",
-    "@architect/functions": "^1.8.10"
+    "@architect/data": "^2.0.5",
+    "@architect/functions": "^1.8.12"
   }
 }

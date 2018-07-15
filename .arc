@@ -13,7 +13,10 @@ memberships
 
 clusters
   clusterId *String
-  createdAt **Number
+
+@indexes
+clusters
+  isOpen *Number
 
 @static
 staging sense8clustersstaging.joinapod.com
