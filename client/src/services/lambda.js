@@ -7,7 +7,7 @@ const awsConfig = {
 const lambda = new AWS.Lambda(awsConfig)
 
 export function requestJoinCluster(user) {
-  fetch("/memberships", {
+  return fetch("/memberships", {
     method: "POST",
     headers: {
       Accept: "application/json",

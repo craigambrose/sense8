@@ -1,17 +1,5 @@
 import React from "react"
-import {
-  ChasingDots,
-  Circle,
-  CubeGrid,
-  DoubleBounce,
-  FadingCircle,
-  FoldingCube,
-  Pulse,
-  RotatingPlane,
-  ThreeBounce,
-  WanderingCubes,
-  Wave
-} from "better-react-spinkit"
+import { Wave } from "better-react-spinkit"
 
 const JoinForm = ({ user, loading, onRequestJoin }) => {
   return (

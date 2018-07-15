@@ -1,3 +1,7 @@
+body {
+  background-color: #77bfa0;
+}
+
 .jumbotron {
   background: linear-gradient(to top, #77bfa0, #f0f7ee);
   color: #333;
@@ -23,6 +27,13 @@
   background-color: #444;
   padding: 2rem 0;
   color: white;
+}
+
+.light-section {
+  background-color: #ffffff;
+  padding: 2rem 0;
+  border-top: 3px solid #444;
+  border-bottom: 3px solid #444;
 }
 
 .dark-section hr {
