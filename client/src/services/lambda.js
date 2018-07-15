@@ -14,7 +14,7 @@ export function requestJoinCluster(user) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(user)
-  })
+  }).then(res => res.json())
 }
 
 export function loadOpenClusters() {

@@ -3,12 +3,18 @@ import "./App.css"
 import Jumbotron from "./page_parts/Jumbotron"
 import JoinForm from "./page_parts/JoinForm"
 import OpenClusters from "./page_parts/OpenClusters"
+import MyCluster from "./page_parts/MyCluster"
 import { requestJoinCluster, loadOpenClusters } from "./services/lambda"
 
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = { user: null, joinState: "new", stateLoading: false }
+    this.state = {
+      user: null,
+      joinState: "new",
+      stateLoading: false,
+      clusters: null
+    }
   }
 
   setUser = user => {
@@ -17,16 +23,20 @@ class App extends Component {
 
   requestJoinCluster = user => {
     this.setState({ stateLoading: true })
-    requestJoinCluster(user).then(this.loadFormingClusters)
+    requestJoinCluster(user).then(this.setMyCluster)
+  }
+
+  setMyCluster = ({ cluster }) => {
+    this.setState({ joinState: "joined", stateLoading: false, cluster })
   }
 
   loadFormingClusters = () => {
-    this.setState({ joinState: "forming", stateLoading: true })
+    this.setState({ joinState: "joined", stateLoading: true })
     loadOpenClusters().then(data => {
       this.setState({
-        joinState: "forming",
+        joinState: "joined",
         stateLoading: false,
-        openClusters: data.clusters
+        clusters: data.clusters
       })
     })
   }
@@ -38,11 +48,11 @@ class App extends Component {
 
   shouldShowMatches() {
     const { user, joinState } = this.state
-    return user && joinState == "forming"
+    return user && joinState == "joined"
   }
 
   render() {
-    const { user, joinState, stateLoading, openClusters } = this.state
+    const { user, joinState, stateLoading, clusters, cluster } = this.state
 
     return (
       <div className="App">
@@ -60,7 +70,8 @@ class App extends Component {
             />
           )}
         </div>
-        {this.shouldShowMatches() && <OpenClusters clusters={openClusters} />}
+        {cluster && <MyCluster cluster={cluster} />}
+        {this.shouldShowMatches() && <OpenClusters clusters={clusters} />}
       </div>
     )
   }

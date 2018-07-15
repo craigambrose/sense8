@@ -36,6 +36,10 @@ body {
   border-bottom: 3px solid #444;
 }
 
+.clear-section {
+  padding: 2rem 0;
+}
+
 .dark-section hr {
   border-color: #ccc;
 }

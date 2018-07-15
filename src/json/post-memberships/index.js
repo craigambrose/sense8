@@ -33,9 +33,12 @@ async function findOrCreateMembership(user) {
 async function route(req, res) {
   const user = req.body
   const membership = await findOrCreateMembership(user)
+  const cluster = await data.clusters.get({
+    clusterId: membership.clusterId
+  })
 
   res({
-    json: { msg: "posting membership" }
+    json: { cluster: cluster }
   })
 }
 
