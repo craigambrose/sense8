@@ -39,8 +39,10 @@ function getUserBirthdayScore(user, clusterUser) {
 }
 
 function getBirthdayScore(user, cluster) {
+  const users = cluster.users || []
+
   return mean(
-    cluster.users.map(clusterUser => {
+    users.map(clusterUser => {
       return getUserBirthdayScore(user, clusterUser)
     })
   )

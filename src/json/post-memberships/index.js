@@ -20,10 +20,8 @@ async function findOrCreateMembership(user) {
     }
 
     const cluster = ClusterMatching.findBestCluster(user)
-    console.log("created")
-
     const newMembership = await data.memberships.put(membership)
-    console.log("created")
+
     return newMembership
   }
 }
