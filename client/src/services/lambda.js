@@ -15,18 +15,14 @@ export function requestJoinCluster(user) {
     },
     body: JSON.stringify(user)
   })
-  // const params = {
-  //   FunctionName: "sense8-match-user",
-  //   InvocationType: "RequestResponse",
-  //   LogType: "None"
-  // }
-  // lambda.invoke(params, function(error, data) {
-  //   if (error) {
-  //     console.log("got error", error)
-  //     // prompt(error)
-  //   } else {
-  //     // results = JSON.parse(data.Payload)
-  //     console.log("got result", data)
-  //   }
-  // })
+}
+
+export function loadOpenClusters() {
+  return fetch("/open-clusters", {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    }
+  })
 }
