@@ -24,7 +24,7 @@ async function createNewCluster(user) {
     clusterId: user.id,
     createdAt: Date.now(),
     isOpen: 1,
-    users: [user]
+    users: []
   }
 
   const newCluster = await data.clusters.put(cluster)
@@ -34,15 +34,29 @@ async function createNewCluster(user) {
 }
 
 async function findBestCluster(user) {
-  // console.log("calling find best cluster", user)
-
+  var result = null
   const openClusters = await allOpenClusters()
-  console.log("got open clusters result", openClusters)
-  if (openClusters.length == 0) return createNewCluster(user)
 
-  const scores = getMatchScores(user, openClusters)
-  const bestScore = bestMatchScore(scores)
-  console.log("best match score", scores)
+  if (openClusters.length >= 0) {
+    const scores = getMatchScores(user, openClusters)
+    const bestScore = bestMatchScore(scores)
+    if (bestScore) result = bestScore.cluster
+  }
+
+  if (result) return result
+  return createNewCluster(user)
 }
 
-module.exports = { findBestCluster }
+async function addToCluster(user, cluster) {
+  console.log("about to refetch with", { clusterId: cluster.clusterId })
+  const existing = await data.clusters.get({ clusterId: cluster.clusterId })
+  console.log("refetched existing", existing)
+
+  existing.users.push(user)
+
+  const updated = await data.clusters.put(existing)
+  console.log("updated cluster", updated)
+  return
+}
+
+module.exports = { findBestCluster, addToCluster }

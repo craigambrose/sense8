@@ -1,6 +1,6 @@
 const arc = require("@architect/functions")
 const data = require("@architect/data")
-const ClusterMatching = require("./ClusterMatching")
+const { findBestCluster, addToCluster } = require("./ClusterMatching")
 
 async function findOrCreateMembership(user) {
   const userId = user.id
@@ -13,13 +13,17 @@ async function findOrCreateMembership(user) {
     console.log("no membership yet for user", userId)
     console.log("creating")
 
+    const cluster = await findBestCluster(user)
+
+    console.log("about to addToCluster")
+    await addToCluster(user, cluster)
+    console.log("finished addToCluster")
+
     const membership = {
       userId,
       facebookUser: user,
-      clusterId: null
+      clusterId: cluster.clusterId
     }
-
-    const cluster = ClusterMatching.findBestCluster(user)
     const newMembership = await data.memberships.put(membership)
 
     return newMembership
