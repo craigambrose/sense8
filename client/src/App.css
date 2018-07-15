@@ -78,9 +78,21 @@ body {
   border-color: #538c73;
 }
 
+.cluster {
+  background-color: #cccccc;
+  border: 1px solid #999999;
+  padding: 3px;
+  display: inline-block;
+  margin: 5px;
+}
+
 .cluster .avatar {
+  border: 1px solid #343a40;
   width: 38px;
   height: 38px;
-  border: 1px solid #343a40;
-  border-radius: 0.3rem;
+  margin-right: 2px;
+}
+
+.cluster .avatar:last-child {
+  margin-right: 0px;
 }
