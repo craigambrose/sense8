@@ -6,6 +6,7 @@ get /
 
 @json
 post /memberships
+get /memberships/:userId
 get /open-clusters
 
 @tables

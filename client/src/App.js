@@ -4,7 +4,11 @@ import Jumbotron from "./page_parts/Jumbotron"
 import JoinForm from "./page_parts/JoinForm"
 import OpenClusters from "./page_parts/OpenClusters"
 import MyCluster from "./page_parts/MyCluster"
-import { requestJoinCluster, loadOpenClusters } from "./services/lambda"
+import {
+  requestJoinCluster,
+  loadOpenClusters,
+  loadClusterForUser
+} from "./services/lambda"
 
 class App extends Component {
   constructor(props) {
@@ -19,11 +23,16 @@ class App extends Component {
 
   setUser = user => {
     this.setState({ user, stateLoading: false })
+    this.loadUserData(user)
+  }
+
+  loadUserData = user => {
+    loadClusterForUser(user).then(this.setMyCluster)
   }
 
   requestJoinCluster = user => {
     this.setState({ stateLoading: true })
-    requestJoinCluster(user).then(this.setMyCluster)
+    requestJoinCluster(user).then(() => this.loadUserData(this.state.user))
   }
 
   setMyCluster = ({ cluster }) => {

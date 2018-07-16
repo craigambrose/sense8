@@ -1,0 +1,7 @@
+{
+  "name": "get-memberships-000userId",
+  "dependencies": {
+    "@architect/data": "^2.0.5",
+    "@architect/functions": "^1.8.12"
+  }
+}

@@ -6,23 +6,29 @@ const awsConfig = {
 
 const lambda = new AWS.Lambda(awsConfig)
 
+const headers = {
+  Accept: "application/json",
+  "Content-Type": "application/json"
+}
+
 export function requestJoinCluster(user) {
   return fetch("/memberships", {
     method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json"
-    },
+    headers,
     body: JSON.stringify(user)
+  }).then(res => res.json())
+}
+
+export function loadClusterForUser(user) {
+  return fetch(`/memberships/${user.id}`, {
+    method: "GET",
+    headers
   }).then(res => res.json())
 }
 
 export function loadOpenClusters() {
   return fetch("/open-clusters", {
     method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json"
-    }
+    headers
   }).then(res => res.json())
 }
