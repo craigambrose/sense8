@@ -15,7 +15,6 @@ class App extends Component {
     super(props)
     this.state = {
       user: null,
-      joinState: "new",
       stateLoading: false,
       clusters: null
     }
@@ -36,14 +35,13 @@ class App extends Component {
   }
 
   setMyCluster = ({ cluster }) => {
-    this.setState({ joinState: "joined", stateLoading: false, cluster })
+    this.setState({ stateLoading: false, cluster })
   }
 
   loadFormingClusters = () => {
-    this.setState({ joinState: "joined", stateLoading: true })
+    this.setState({ stateLoading: true })
     loadOpenClusters().then(data => {
       this.setState({
-        joinState: "joined",
         stateLoading: false,
         clusters: data.clusters
       })
@@ -51,17 +49,17 @@ class App extends Component {
   }
 
   shouldShowJoinForm() {
-    const { user, joinState } = this.state
-    return user && joinState == "new"
+    const { user, cluster } = this.state
+    return user && !cluster
   }
 
   shouldShowMatches() {
-    const { user, joinState } = this.state
-    return user && joinState == "joined"
+    const { user, cluster } = this.state
+    return user && cluster
   }
 
   render() {
-    const { user, joinState, stateLoading, clusters, cluster } = this.state
+    const { user, stateLoading, clusters, cluster } = this.state
 
     return (
       <div className="App">
